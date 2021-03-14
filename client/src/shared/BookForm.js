@@ -6,10 +6,8 @@ export const BookForm = ({defaultData, onFormSubmit}) => {
     const [isbn, setIsbn] = useState(defaultData.isbn);
     
     const handleSubmit = (e) => {
-        console.log("inside handleSubmit in BookForm.js");
         e.preventDefault();
-        let id = defaultData.id
-        onFormSubmit({id, title, author, isbn});
+        onFormSubmit({title, author, isbn});
     }
 
     return (

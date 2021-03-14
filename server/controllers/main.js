@@ -41,21 +41,31 @@ const getTableData = (req, res, db) => {
           res.json({dataExists: 'false'})
         }
       })
-      .catch(err => res.status(400).json({dbError: `${err}`}))
+      .catch(err => res.status(400).json({dbError: err}))
   }
-  
-  const postTableData = (req, res, db) => {
-    const { description, price, date } = req.body
-    db(table).insert({description, price, date})
+
+  const putTableData = (req, res, db) => {
+    id = req.params.id;
+    const { title, author, isbn } = req.body
+    db(table).where({id}).update({title, author, isbn})
       .returning('*')
       .then(item => {
         res.json(item)
       })
-      .catch(err => res.status(400).json({dbError: `${err}`}))
+      .catch(err => res.status(400).json({dbError: err}))
   }
   
-  const putTableData = (req, res, db) => {
-    const { id, title, author, isbn } = req.body
+  const deleteTableData = (req, res, db) => {
+    id = req.params.id;
+    db(table).where({id}).del()
+      .then(() => {
+        res.json({delete: 'true'})
+      })
+      .catch(err => res.status(400).json({dbError: err}))
+  }
+
+  /* const putTableData = (req, res, db) => {
+    const {id, title, author, isbn } = req.body
     db(table).where({id}).update({title, author, isbn})
       .returning('*')
       .then(item => {
@@ -71,6 +81,16 @@ const getTableData = (req, res, db) => {
         res.json({delete: 'true'})
       })
       .catch(err => res.status(400).json({dbError: 'db error deleting item'}))
+  } */
+  
+  const postTableData = (req, res, db) => {
+    const { description, price, date } = req.body
+    db(table).insert({description, price, date})
+      .returning('*')
+      .then(item => {
+        res.json(item)
+      })
+      .catch(err => res.status(400).json({dbError: err}))
   }
   
   module.exports = {

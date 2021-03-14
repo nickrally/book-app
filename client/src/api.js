@@ -8,20 +8,19 @@ export const getAllBooks = async () => {
 
 export const getBook = async ({ queryKey }) => {
     const [key, { id }] = queryKey;
-    const response = await fetch(`${process.env.REACT_APP_API_SERVER}/books/${id}`);
+    const response = await fetch(`${process.env.REACT_APP_API_SERVER}/book/${id}`);
     if(!response.ok){
         throw new Error(`OH, NOES! ${response.json().message}`);
     }
     return response.json();
 }
 
-export const updateBook = async (data) => {
-    console.log("inside updateBook in api.js")
-    const url = `${process.env.REACT_APP_API_SERVER}/books`;
+export const updateBook = async ({id, ...payload}) => {
+    const url = `${process.env.REACT_APP_API_SERVER}/book/${id}`;
     const response = await fetch(url, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        body: JSON.stringify(payload)
     })
     if(!response.ok){
         throw new Error(`OH, NOES! ${response.json().message}`);
@@ -30,11 +29,10 @@ export const updateBook = async (data) => {
 }
 
 export const removeBook = async (id) => {
-    const url = `${process.env.REACT_APP_API_SERVER}/books`;
+    const url = `${process.env.REACT_APP_API_SERVER}/book/${id}`;
     const response = await fetch(url,{
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(id)
     });
     if(!response.ok){
         throw new Error(`OH, NOES! ${response.statusText}`);

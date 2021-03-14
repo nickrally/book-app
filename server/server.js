@@ -32,10 +32,10 @@ app.use(morgan('combined'))
 
 app.get('/', (req, res) => res.send('server: ok'));
 app.get('/books', (req, res)     => main.getTableData(req, res, db))
-app.get('/books/:id', (req, res) => main.queryById(req, res, db))
-app.post('/books', (req, res) => main.postTableData(req, res, db))
-app.put('/books', (req, res) => main.putTableData(req, res, db))
-app.delete('/books', (req, res) => main.deleteTableData(req, res, db))
+app.get('/book/:id', (req, res) => main.queryById(req, res, db))
+app.post('/book/create', (req, res) => main.postTableData(req, res, db))
+app.put('/book/:id', (req, res) => main.putTableData(req, res, db))
+app.delete('/book/:id', (req, res) => main.deleteTableData(req, res, db))
 
 app.listen(process.env.PORT || 4000, () => {
     console.log(`app is running on port ${process.env.PORT || 4000}`);

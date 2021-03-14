@@ -15,7 +15,7 @@ export const UpdateBook = () => {
     );
 
     const onFormSubmit = async (payload) => {
-        await mutateAsync(payload);
+        await mutateAsync({...payload, id});
         history.push('/');
         queryClient.invalidateQueries('book');
     }
