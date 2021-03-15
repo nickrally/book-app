@@ -63,29 +63,10 @@ const getTableData = (req, res, db) => {
       })
       .catch(err => res.status(400).json({dbError: err}))
   }
-
-  /* const putTableData = (req, res, db) => {
-    const {id, title, author, isbn } = req.body
-    db(table).where({id}).update({title, author, isbn})
-      .returning('*')
-      .then(item => {
-        res.json(item)
-      })
-      .catch(err => res.status(400).json({dbError: `${err}`}))
-  }
-  
-  const deleteTableData = (req, res, db) => {
-    const { id } = req.body
-    db(table).where({id}).del()
-      .then(() => {
-        res.json({delete: 'true'})
-      })
-      .catch(err => res.status(400).json({dbError: 'db error deleting item'}))
-  } */
   
   const postTableData = (req, res, db) => {
-    const { description, price, date } = req.body
-    db(table).insert({description, price, date})
+    const { title, author, isbn } = req.body
+    db(table).insert({title, author, isbn})
       .returning('*')
       .then(item => {
         res.json(item)

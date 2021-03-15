@@ -16,8 +16,8 @@ export const UpdateBook = () => {
 
     const onFormSubmit = async (payload) => {
         await mutateAsync({...payload, id});
-        history.push('/');
         queryClient.invalidateQueries('book');
+        history.push('/');
     }
 
     if(isLoading){
@@ -37,7 +37,7 @@ export const UpdateBook = () => {
     return (
         <Container>
             <h2>Update book</h2>
-            <BookForm defaultData={data} onFormSubmit={onFormSubmit} />
+            <BookForm onFormSubmit={onFormSubmit} defaultData={data} />
         </Container>
     )
 }

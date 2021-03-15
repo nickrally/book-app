@@ -39,3 +39,16 @@ export const removeBook = async (id) => {
     }
     return true;
 }
+
+export const addBook = async (payload) => {
+    const url = `${process.env.REACT_APP_API_SERVER}/book/create`;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    });
+    if(!response.ok){
+        throw new Error(`OH, NOES! ${response.json().message}`)
+    }
+    return response.json();
+}
